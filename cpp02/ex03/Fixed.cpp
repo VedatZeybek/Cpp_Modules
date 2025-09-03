@@ -1,8 +1,7 @@
 #include "Fixed.hpp"
 #include <cmath>
 
-// Member FUnctions
-
+// Member Functions
 
 Fixed& Fixed::min(Fixed &a, Fixed &b) { return (a < b) ? a : b; }
 
