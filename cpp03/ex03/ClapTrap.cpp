@@ -39,7 +39,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 		this->attackDamage = other.attackDamage;
 	}
 	std::cout << "ClapTrap assignment operator called" << std::endl;
-	return *this; // Zincirleme atama (a = b = c) için gerekli
+	return *this;
 }
 
 void ClapTrap::printStatus() const 
