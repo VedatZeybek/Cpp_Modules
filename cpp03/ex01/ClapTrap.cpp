@@ -23,6 +23,12 @@ ClapTrap::ClapTrap(std::string name)
 	std::cout << "Constructor created." << std::endl;
 }
 
+
+ClapTrap::~ClapTrap()
+{
+	std::cout << "Constructor destroyed." << std::endl;
+}
+
 ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 {
 	if (this != &other)	
@@ -36,12 +42,13 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 	return *this; // Zincirleme atama (a = b = c) için gerekli
 }
 
-
-ClapTrap::~ClapTrap()
+void ClapTrap::printStatus() const 
 {
-	std::cout << "Constructor destroyed." << std::endl;
+    std::cout << "Status of " << name << ":\n"
+              << "  Hit Points   : " << health << "\n"
+              << "  Energy Points: " << energy << "\n"
+              << "  Attack Damage: " << attackDamage << "\n";
 }
-
 
 void ClapTrap::attack(const std::string& target)
 {

@@ -20,6 +20,7 @@ public:
 	void beRepaired(unsigned int amount);
 	~ClapTrap();
 
+	void printStatus() const;
 	    // Getters
     std::string getName() const;
     int getHealth() const;
