@@ -37,4 +37,49 @@ These projects are designed to teach the fundamentals of C++ step by step, focus
 
 ### **Module 02 – Orthodox Canonical Form & Operator Overloading**
 - Orthodox Canonical Form (constructor, copy constructor, assignment operator, destructor)  
-- Operator overloading (`+`, `<<`,
+- Operator overloading (`+`, `<<`, etc.)  
+**Goal:** Learn object copying and operator customization  
+
+---
+
+### **Module 03 – Inheritance**
+- Inheritance (single and multiple)  
+- `virtual` functions  
+- Overriding methods (`attack()`)  
+- Classes: `ScavTrap`, `FragTrap`, `DiamondTrap`  
+**Goal:** Master inheritance and solve the diamond problem  
+
+---
+
+### **Module 04 – Polymorphism**
+- Abstract classes (pure virtual functions)  
+- Base class `Animal`, derived classes `Dog`, `Cat`  
+**Goal:** Learn polymorphism and virtual function mechanics  
+
+---
+
+### **Module 05 – Exceptions**
+- Exception handling (`try` / `catch` / `throw`)  
+- `Bureaucrat` and `Form` example  
+**Goal:** Handle errors using exceptions  
+
+---
+
+### **Module 06 – Casts**
+- `static_cast`, `dynamic_cast`, `reinterpret_cast`, `const_cast`  
+- Scalar conversion  
+**Goal:** Understand C++ casting operators  
+
+---
+
+### **Module 07 – Templates**
+- Class templates  
+- Function templates  
+**Goal:** Practice generic programming  
+
+---
+
+### **Module 08 – STL Containers**
+- Using `std::vector`, `std::stack`, `std::map`  
+- Iterators  
+**Goal:** Learn how to work with STL containers and algorithms
