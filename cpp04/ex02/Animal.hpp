@@ -1,7 +1,7 @@
 #ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+# define ANIMAL_HPP
 
-#include "iostream"
+# include "iostream"
 
 class Animal
 {
@@ -15,10 +15,8 @@ public:
 	virtual ~Animal();
 
 	std::string getType() const;
-	virtual void makeSound() const;
+	virtual void makeSound() const = 0; // pure virtual → abstract class;
 };
-
-
 
 
 #endif
