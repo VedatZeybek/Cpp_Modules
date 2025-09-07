@@ -15,3 +15,5 @@ int main()
 
 	return (0);
 }
+
+//pointer veya referans olduğu zaman const fonksiyonlar çağrılabilir
