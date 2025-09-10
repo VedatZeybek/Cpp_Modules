@@ -1,4 +1,3 @@
-
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
@@ -6,7 +5,7 @@ int main()
 {
     try
     {
-        Bureaucrat vedat("Vedat", 30);
+        Bureaucrat vedat("Vedat", 40);
         Form form("Form", 40, 20);
 
         std::cout << form << std::endl;

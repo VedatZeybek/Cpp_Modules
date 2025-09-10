@@ -36,8 +36,8 @@ Form::~Form()
 
 const std::string Form::getName() const { return (name); }
 bool Form::getIsSigned() const { return (isSigned); }
-const int Form::getSignRequired() const { return (signRequired); }
-const int Form::getExecRequired() const { return (execRequired); }
+ int Form::getSignRequired() const { return (signRequired); }
+ int Form::getExecRequired() const { return (execRequired); }
 
 
 void Form::beSigned(const Bureaucrat &bureaucrat)
@@ -48,10 +48,24 @@ void Form::beSigned(const Bureaucrat &bureaucrat)
 }
 
 
+
+const char* Form::GradeTooHighException::what() const throw()
+{
+	return "Form grade is too high!";
+}
+
+const char* Form::GradeTooLowException::what() const throw()
+{
+	return "Form grade is too low!";
+}
+
 std::ostream&  operator<<(std::ostream &os, const Form &form)
 {
     os << "Form: " << form.getName()
        << ", Signed: " << (form.getIsSigned() ? "Yes" : "No")
        << ", Required Sign Grade: " << form.getSignRequired()
        << ", Required Execute Grade: " << form.getExecRequired();
-}
+	
+	   return (os);
+}	   
+

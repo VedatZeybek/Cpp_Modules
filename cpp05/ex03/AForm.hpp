@@ -1,10 +1,10 @@
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef AFORM_HPP
+#define AFORM_HPP
 
 #include "iostream"
 #include "Bureaucrat.hpp"
 
-class Form
+class AForm
 {
 private:
 	std::string const	name;
@@ -13,18 +13,23 @@ private:
 	const int			execRequired;
 
 public:
-	Form();
-	Form(const Form& other);
-	Form(const std::string name, int signRequired, int execRequired);
-	Form& operator=(const Form& other);
-	~Form();
+	AForm();
+	AForm(const AForm& other);
+	AForm(const std::string name, int signRequired, int execRequired);
+	AForm& operator=(const AForm& other);
+	virtual ~AForm();
 
+	//You do not have to change but you have to override it
+	virtual void execute(Bureaucrat &bureaucrat) const = 0;
+    
 	
 	const std::string getName() const;
 	bool getIsSigned() const;
 	int getSignRequired() const;
 	int getExecRequired() const;
-    void beSigned(const Bureaucrat &bureaucrat);
+	void setIsSigned(bool isSigned);
+	
+	void beSigned(const Bureaucrat &bureaucrat);
 
 	class GradeTooHighException : public std::exception
 	{
@@ -39,7 +44,7 @@ public:
 	};
 };
 
-std::ostream &operator<<(std::ostream &os, const Form &form);
+std::ostream &operator<<(std::ostream &os, const AForm &form);
 
 
 #endif
