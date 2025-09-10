@@ -14,7 +14,7 @@ Dog::Dog(const std::string& type) : Animal(type)
 Dog::Dog(const Dog &other) : Animal(other)
 {
     brain = new Brain(*other.brain);
-	std::cout << "Dog copied" << std::endl;
+	std::cout << "Dog copied(deep copy)" << std::endl;
 }
 
 Dog::~Dog()

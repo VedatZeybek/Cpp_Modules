@@ -14,8 +14,8 @@ Cat::Cat(const std::string& type) : Animal(type)
 
 Cat::Cat(const Cat &other) : Animal(other)
 {	
-	brain = new Brain(*other.brain);
-	std::cout << "Cat copied" << std::endl;
+	brain = new Brain(*other.brain); //DEEP COPY CONSTRUCTOR
+	std::cout << "Cat copied(deep copy)" << std::endl;
 }
 
 Cat::~Cat()
