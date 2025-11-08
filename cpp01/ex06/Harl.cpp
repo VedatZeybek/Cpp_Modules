@@ -9,10 +9,10 @@ enum Level { D = 1, I, W, E, UNKNOWN };
 
 Level getLevel(std::string lvl) {
 	if (lvl == "DEBUG") return D;
-    if (lvl == "INFO") return I;
-    if (lvl == "WARNING") return W;
-    if (lvl == "ERROR") return E;
-    return UNKNOWN;
+	if (lvl == "INFO") return I;
+	if (lvl == "WARNING") return W;
+	if (lvl == "ERROR") return E;
+	return UNKNOWN;
 }
 
 void Harl::complainFromLevel(std::string level)

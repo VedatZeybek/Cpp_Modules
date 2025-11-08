@@ -7,6 +7,35 @@ int Account::_totalAmount = 0;
 int Account::_totalNbDeposits = 0;
 int Account::_totalNbWithdrawals = 0;
 
+// constructor
+
+Account::Account( int initial_deposit )
+:	_accountIndex(_nbAccounts),
+	_amount(initial_deposit),
+	_nbDeposits(0),
+	_nbWithdrawals(0)
+{
+	_nbAccounts++;
+	_totalAmount += initial_deposit;
+
+	_displayTimestamp();
+	std::cout	<< "index:" << _accountIndex;
+	std::cout	<< ";amount:" << _amount;
+	std::cout	<< ";created" << std::endl;
+}
+
+//destructor
+
+Account::~Account( void )
+{
+	_displayTimestamp();
+	std::cout	<< "index:" << _accountIndex;
+	std::cout	<< ";amount:" << _amount;
+	std::cout	<< ";closed" << std::endl;
+}
+
+
+//getters
 
 int	Account::getNbAccounts()
 {
@@ -27,6 +56,8 @@ int	Account::getNbWithdrawals( void )
 	return (_totalNbWithdrawals);
 }
 
+//member functions
+
 void	Account::displayAccountsInfos( void )
 {
 	_displayTimestamp();
@@ -36,28 +67,6 @@ void	Account::displayAccountsInfos( void )
 	std::cout << "witdrawals:" << _totalNbWithdrawals << std::endl;
 }
 
-Account::Account( int initial_deposit )
-:	_accountIndex(_nbAccounts),
-	_amount(initial_deposit),
-	_nbDeposits(0),
-	_nbWithdrawals(0)
-{
-	_nbAccounts++;
-	_totalAmount += initial_deposit;
-
-	_displayTimestamp();
-	std::cout	<< "index:" << _accountIndex;
-	std::cout	<< ";amount:" << _amount;
-	std::cout	<< ";created" << std::endl;
-}
-
-Account::~Account( void )
-{
-	_displayTimestamp();
-	std::cout	<< "index:" << _accountIndex;
-	std::cout	<< ";amount:" << _amount;
-	std::cout	<< ";closed" << std::endl;
-}
 
 void	Account::makeDeposit( int deposit )
 {
@@ -65,7 +74,7 @@ void	Account::makeDeposit( int deposit )
 	std::cout << "index:" << _accountIndex;
 	std::cout << ";p_amount:" << _amount;
 	std::cout << ";deposit:" << deposit;
-    
+
 	_amount += deposit;
 	_nbDeposits++;
 	_totalAmount += deposit;
@@ -119,8 +128,8 @@ void	Account::displayStatus( void ) const
 
 void	Account::_displayTimestamp()
 {
-	time_t	time_now = time(NULL);
-	tm		*ltm = localtime(&time_now);
+	time_t	time_now = std::time(NULL);
+	tm		*ltm = std::localtime(&time_now);
 	std::cout	<< "[" 
 				<< 1900 + ltm->tm_year
 				<< (ltm->tm_mon + 1 < 10 ? "0" : "") << ltm->tm_mon + 1

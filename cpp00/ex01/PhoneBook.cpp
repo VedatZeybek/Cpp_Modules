@@ -1,6 +1,11 @@
 #include "PhoneBook.hpp"
 #include <iomanip>
 
+PhoneBook::PhoneBook()
+{
+	count = 0;
+}
+
 std::string	PhoneBook::formatColumn(const std::string &str) const
 {
 	if (str.length() > 10)
@@ -10,6 +15,7 @@ std::string	PhoneBook::formatColumn(const std::string &str) const
 
 void	PhoneBook::displayContacts() const
 {
+	std::cout << "---------------------------------------------" << std::endl;
 	std::cout << "|";
 	std::cout << std::setw(10) << "Index" << "|";
 	std::cout << std::setw(10) << "First Name" << "|";
@@ -44,15 +50,13 @@ void	PhoneBook::searchContact(int idx) const
 	std::cout << "Darkest Secret: " << c.getDarkestSecret() << std::endl;
 }
 
+
 int		PhoneBook::getCount() const { return (count); }
 
 void	PhoneBook::incrementCount(int &count) { count++; }
 
 void	PhoneBook::addContact(Contact &contact)
 {
-	if (count < 8)
-	{
-		contacts[count] = contact;
-		count++;
-	}
+	contacts[count % 8] = contact;
+	incrementCount(count);
 }

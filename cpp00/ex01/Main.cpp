@@ -17,7 +17,6 @@ int	main()
 		if (command	== "ADD") 
 		{
 			std::string	fn,	ln,	nn,	pn,	ds;
-
 			std::cout << "First	Name: ";
 			std::getline(std::cin, fn);
 			std::cout << "Last Name: ";

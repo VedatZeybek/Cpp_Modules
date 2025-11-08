@@ -6,7 +6,7 @@ int	main()
 
 	zombie->announce();
 	
-	randomChump("garslan");
+	randomChump("harici");
 
 	delete (zombie);
 }

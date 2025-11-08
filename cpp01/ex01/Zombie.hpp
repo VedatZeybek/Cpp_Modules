@@ -14,6 +14,7 @@ void		announce(void);
 void		setName(std::string name);
 std::string getName() const;
 Zombie(std::string name);
+Zombie();
 ~Zombie();
 };
 
