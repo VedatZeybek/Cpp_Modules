@@ -1,9 +1,9 @@
 NAME    = test
 
 CC      = c++
-CFLAGS  = -Wall -Wextra -Werror -std=c++98 -Wshadow -Wno-shadow
+CFLAGS  = -Wall -Wextra -Werror -std=c++98
 
-SRC     = main.cpp ClapTrap.cpp  FragTrap.cpp ScavTrap.cpp DiamondTrap.cpp
+SRC     = main.cpp Fixed.cpp
 OBJ     = $(SRC:.cpp=.o)
 
 all: $(NAME)
@@ -16,10 +16,10 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ)
+	rm -f $(OBJ)
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 

@@ -1,4 +1,5 @@
 #include "Fixed.hpp"
+//#include <iomanip>
 
 int main( void ) {
 	Fixed a;
@@ -16,3 +17,6 @@ int main( void ) {
 	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
 	return 0;
 }
+
+//for proof:
+//std::cout << std::setprecision(10) << a.toFloat() << "\n";

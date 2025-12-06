@@ -55,8 +55,8 @@ Fixed Fixed::operator * (const Fixed &other) const
 Fixed Fixed::operator / (const Fixed &other) const
 {
 	Fixed newFixed;
-    long temp = ((long)this->getRawBits() << fixed) / (long)other.getRawBits();
-    newFixed.setRawBits(temp);
+	long temp = ((long)this->getRawBits() << fixed) / (long)other.getRawBits();
+	newFixed.setRawBits(temp);
 	return (newFixed);
 }
 

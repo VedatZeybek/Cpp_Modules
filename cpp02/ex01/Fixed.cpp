@@ -7,19 +7,24 @@ Fixed::Fixed()
 	std::cout << "Default constructor called" << "\n";
 }
 
+
+//fixed-point representation
+//IN THE FIXED NUMBER SYSTEM ------> REAL VALUE = VALUE / 256
+
 Fixed::Fixed(const Fixed& other)
 {
 	std::cout << "Copy constructor called" << "\n";
 	this->value = other.value;
 }
 
-Fixed::Fixed(const int num)
+Fixed::Fixed(const int num) 
 {
 	std::cout << "Int constructor called" << "\n";
 	value = num << fixed;
 }
 
-Fixed::Fixed(const float num)
+//float cannot float bits
+Fixed::Fixed(const float num)  //1234.4321      //42.42 
 {
 	std::cout << "Float constructor called" << "\n";
 	value = roundf(num * (1 << fixed));

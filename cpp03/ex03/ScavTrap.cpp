@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap() : ClapTrap("DefaultScav")
+ScavTrap::ScavTrap()
 {
 	health = 100;
 	energy = 50;
@@ -16,7 +16,7 @@ ScavTrap::ScavTrap(std::string name)
     std::cout << "ScavTrap Parameterized constructor called for " << name << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other)
+ScavTrap::ScavTrap(const ScavTrap& other)
 {
 	std::cout << "ScavTrap Copy constructor called\n";
 	*this = other;
