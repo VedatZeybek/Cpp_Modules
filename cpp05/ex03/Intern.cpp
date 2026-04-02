@@ -1,34 +1,64 @@
 #include "Intern.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
-Intern::Intern() {}
-Intern::~Intern() {}
-Intern::Intern(const Intern &other) { (void)other; }
-Intern &Intern::operator=(const Intern &other) { (void)other; return *this; }
-
-typedef AForm* (*FormCreator)(const std::string &target);
-
-static AForm* makeShrubbery(const std::string &target) { return new ShrubberyCreationForm(target); }
-static AForm* makeRobotomy(const std::string &target) { return new RobotomyRequestForm(target); }
-static AForm* makePardon(const std::string &target) { return new PresidentialPardonForm(target); }
-
-AForm* Intern::makeForm(const std::string &formName, const std::string &target) const
+Intern::Intern()
 {
-	struct FormPair { std::string name; FormCreator creator; };
-	FormPair forms[] = {
-		{"shrubbery creation", &makeShrubbery},
-		{"robotomy request", &makeRobotomy},
-		{"presidential pardon", &makePardon}
+}
+
+Intern::Intern(const Intern& other)
+{
+	(void)other;
+}
+
+Intern& Intern::operator=(const Intern& other)
+{
+	(void)other;
+	return (*this);
+}
+
+Intern::~Intern()
+{
+}
+
+AForm* Intern::makeShrubbery(const std::string& target)
+{
+	return new ShrubberyCreationForm(target);
+}
+
+AForm* Intern::makeRobotomy(const std::string& target)
+{
+	return new RobotomyRequestForm(target);
+}
+
+AForm* Intern::makePresidential(const std::string& target)
+{
+	return new PresidentialPardonForm(target);
+}
+
+AForm* Intern::makeForm(const std::string& formName, const std::string& target)
+{
+	std::string forms[3] = {
+		"shrubbery creation",
+		"robotomy request",
+		"presidential pardon"
 	};
 
-	for (int i = 0; i < 3; ++i)
+	AForm* (Intern::*funcs[3])(const std::string&) = {
+		&Intern::makeShrubbery,
+		&Intern::makeRobotomy,
+		&Intern::makePresidential
+	};
+
+	for (int i = 0; i < 3; i++)
 	{
-		if (forms[i].name == formName)
+		if (forms[i] == formName)
 		{
 			std::cout << "Intern creates " << formName << std::endl;
-			return forms[i].creator(target);
+			return (this->*funcs[i])(target);
 		}
 	}
-
-	std::cout << "Intern could not find the form: " << formName << std::endl;
+	std::cout << "Intern couldn't create form because form name is invalid" << std::endl;
 	return NULL;
 }

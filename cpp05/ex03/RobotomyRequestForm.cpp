@@ -1,39 +1,43 @@
 #include "RobotomyRequestForm.hpp"
 
 
+#include "RobotomyRequestForm.hpp"
+#include <cstdlib>
+#include <iostream>
 
-RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45) {}
+RobotomyRequestForm::RobotomyRequestForm()
+	: AForm("RobotomyRequestForm", 72, 45), target("default")
+{
+}
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
+	: AForm("RobotomyRequestForm", 72, 45), target(target)
+{
+}
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other) : AForm(other) { /* *this = other;*/ }
-
-RobotomyRequestForm::RobotomyRequestForm(const std::string target) : AForm("RobotomyRequestForm", 25, 5), target(target) {}
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other)
+	: AForm(other), target(other.target)
+{
+}
 
 RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& other)
 {
-	if (this != &other)
-	{
-		target = other.target;
-		setIsSigned(other.getIsSigned());
-	}
+	AForm::operator=(other);
 	return *this;
 }
 
-
-void RobotomyRequestForm::execute(Bureaucrat &executor) const
+RobotomyRequestForm::~RobotomyRequestForm()
 {
-    if (!getIsSigned())
-        std::cerr << "Did not signed" << std::endl;
-    if (executor.getGrade() > getExecRequired())
-        throw AForm::GradeTooLowException();
+}
 
+void RobotomyRequestForm::executeAction() const
+{
     std::cout << "Drilling noises... Bzzzzzz!" << std::endl;
 
     std::srand(std::time(NULL));
     if (std::rand() % 2)
-        std::cout << getName() << " has been robotomized successfully!" << std::endl;
+        std::cout << target << " has been robotomized successfully!" << std::endl;
     else
-        std::cout << "Robotomy failed on " << getName() << std::endl;
+        std::cout << "Robotomy failed on " << target << std::endl;
 }
 

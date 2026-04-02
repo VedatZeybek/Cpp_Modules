@@ -1,33 +1,33 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137) {}
+ShrubberyCreationForm::ShrubberyCreationForm()
+	: AForm("ShrubberyCreationForm", 145, 137), target("default")
+{
+}
 
-ShrubberyCreationForm::~ShrubberyCreationForm() {}
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) : AForm("ShrubberyCreationForm", 145, 137), target(target)
+{
+}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other) : AForm(other) { /* *this = other;*/ }
-
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string target) : AForm("ShrubberyCreationForm", 25, 5), target(target) {}
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
+	: AForm(other), target(other.target)
+{
+}
 
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other)
 {
-	if (this != &other)
-	{
-		target = other.target;
-		setIsSigned(other.getIsSigned());
-	}
+	AForm::operator=(other);
 	return *this;
 }
 
-
-
-void ShrubberyCreationForm::execute(Bureaucrat &executor) const
+ShrubberyCreationForm::~ShrubberyCreationForm()
 {
-    if (!getIsSigned())
+}
 
-    if (executor.getGrade() > getExecRequired())
-        throw AForm::GradeTooLowException();
 
-    std::ofstream file((getName() + "_shrubbery").c_str());
+void ShrubberyCreationForm::executeAction() const
+{
+    std::ofstream file((getName() + "_shrubbery.txt").c_str());
     if (!file)
     {
         std::cerr << "Failed to create file!" << std::endl;
@@ -49,5 +49,5 @@ file << "                      &&& &&  & &&\n"
 
     file.close();
 
-    std::cout << "Shrubbery created: " << getName() + "_shrubbery" << std::endl;
+    std::cout << "Shrubbery created: " << target + "_shrubbery" << std::endl;
 }
