@@ -2,20 +2,20 @@
 #define BUREAUCRAT_HPP
 
 #include "iostream"
-
-class Form;
+#include "Form.hpp"
 
 class Bureaucrat
 {
-private:
+	//order is matter  //const must be initialized first
+	private:
+	const std::string	name;
 	int			grade;
-	std::string	name;
 
 public:
 	Bureaucrat();
-	Bureaucrat(const std::string name);
+	Bureaucrat(const std::string& name);
 	Bureaucrat(const Bureaucrat& other);
-	Bureaucrat(const std::string name, int grade);
+	Bureaucrat(const std::string& name, int grade);
 	Bureaucrat& operator=(const Bureaucrat& other);
 	~Bureaucrat();
 
@@ -25,27 +25,23 @@ public:
 	void setGrade(int grade);
 	int getGrade() const;
 
-	void incremetGrade();
-	void decrementGrade();        
-	
-	//addition:
-	void signForm(Form &form);
+	void incrementGrade();
+	void decrementGrade();
 
-
-	class GradetooHighException : public std::exception 
+	class GradeTooHighException : public std::exception 
 	{
 		public:
 			const char * what() const throw();
 	};
 
-	class GradetooLowException : public std::exception
+	class GradeTooLowException : public std::exception
 	{
 		public:
 			const char * what() const throw();
 	};
+	void	signForm(Form& form) const;
 };
 
 std::ostream& operator<<(std::ostream &ostream, const Bureaucrat &other);
-
 
 #endif

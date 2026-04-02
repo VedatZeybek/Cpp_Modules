@@ -1,45 +1,47 @@
 #ifndef FORM_HPP
 #define FORM_HPP
 
-#include "iostream"
-#include "Bureaucrat.hpp"
+#include <iostream>
+#include <string>
+#include <exception>
+
+class Bureaucrat;
 
 class Form
 {
 private:
-	std::string const	name;
+	const std::string	name;
 	bool				isSigned;
-	const int			signRequired;
-	const int			execRequired;
+	const int			signGrade;
+	const int			execGrade;
 
 public:
 	Form();
+	Form(const std::string& name, int signGrade, int execGrade);
 	Form(const Form& other);
-	Form(const std::string name, int signRequired, int execRequired);
 	Form& operator=(const Form& other);
 	~Form();
 
-	
-	const std::string getName() const;
-	bool getIsSigned() const;
-	int getSignRequired() const;
-	int getExecRequired() const;
-    void beSigned(const Bureaucrat &bureaucrat);
+	const std::string&	getName() const;
+	bool				getIsSigned() const;
+	int					getSignGrade() const;
+	int					getExecGrade() const;
+
+	void				beSigned(const Bureaucrat& bureaucrat);
 
 	class GradeTooHighException : public std::exception
 	{
-		public:
-			virtual const char *what() const throw();
+	public:
+		virtual const char* what() const throw();
 	};
 
 	class GradeTooLowException : public std::exception
 	{
-		public:
-			virtual const char *what() const throw();
+	public:
+		virtual const char* what() const throw();
 	};
 };
 
-std::ostream &operator<<(std::ostream &os, const Form &form);
-
+std::ostream& operator<<(std::ostream& out, const Form& form);
 
 #endif

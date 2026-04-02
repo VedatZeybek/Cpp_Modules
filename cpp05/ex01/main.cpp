@@ -3,34 +3,41 @@
 
 int main()
 {
-    try
-    {
-        Bureaucrat vedat("Vedat", 40);
-        Form form("Form", 40, 20);
+	try
+	{
+		Bureaucrat a("Alice", 50);
+		Bureaucrat b("Bob", 120);
 
-        std::cout << form << std::endl;
-        vedat.signForm(form); 
+		Form taxForm("TaxForm", 100, 50);
+		Form topSecret("TopSecret", 10, 5);
 
-        Bureaucrat zeybek("Zeybek", 30);
-        zeybek.signForm(form);
+		std::cout << a << std::endl;
+		std::cout << b << std::endl;
+		std::cout << taxForm << std::endl;
+		std::cout << topSecret << std::endl;
 
-        std::cout << form << std::endl;
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
+		a.signForm(taxForm);
+		b.signForm(taxForm);
+		a.signForm(topSecret);
 
-    try
-    {
-        Bureaucrat vedat("Vedat", 150);
-        std::cout << vedat << std::endl;
-        vedat.decrementGrade();
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
+		std::cout << taxForm << std::endl;
+		std::cout << topSecret << std::endl;
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "Exception: " << e.what() << std::endl;
+	}
 
-    return 0;
+	std::cout << "-------------------" << std::endl;
+
+	try
+	{
+		Form wrong("WrongForm", 0, 151);
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "Form creation error: " << e.what() << std::endl;
+	}
+
+	return 0;
 }
