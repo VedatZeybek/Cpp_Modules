@@ -1,81 +1,76 @@
 #include "Array.hpp"
 
 template <typename T>
-Array<T>::Array()
+Array<T>::Array() : _data(NULL), _size(0)
 {
-	size = 0;
-	array = new T[0];
 }
 
-template <typename T>	
-Array<T>::Array(unsigned int n)
+template <typename T>
+Array<T>::Array(unsigned int n) : _data(NULL), _size(n)
 {
-	array = new T[n];
-	size = n;
-	
-	for (unsigned int i = 0; i < size; i++)
+	if (_size > 0)
+		_data = new T[_size]();
+}
+
+template <typename T>
+Array<T>::Array(const Array& other) : _data(NULL), _size(other._size)
+{
+	if (_size > 0)
 	{
-		array[i] = T();
+		_data = new T[_size];
+		for (unsigned int i = 0; i < _size; i++)
+			_data[i] = other._data[i];
 	}
-		//arr[i] = T(); ifadesi, her elemanı T tipinin default değeriyle doldurur.
-		//int = 0
-		//double = 0.0
-		//bool = false
-		//std::string = ""
-		//user-defined class = default constructor ile yaratılır.
 }
 
 template <typename T>
-Array<T>::Array(const Array &a)
+Array<T>& Array<T>::operator=(const Array& other)
 {
-	//if (this != &a)
-	//	*this = a; // shallow copy
-
-	size = a.size;
-    array = new T[size];
-    for (unsigned int i = 0; i < size; i++)
-        array[i] = a.array[i];
-}
-
-template <typename T>
-Array<T>& Array<T>::operator=(const Array &a)
-{
-    if (this != &a)
-    {
-		delete[] array;
-		size = a.size;
-		array = new T[size];
-		for (unsigned int i = 0; i < size; i++)
-			array[i] = a.array[i];
-    }
+	if (this != &other)
+	{
+		delete[] _data;
+		_data = NULL;
+		_size = other._size;
+		if (_size > 0)
+		{
+			_data = new T[_size];
+			for (unsigned int i = 0; i < _size; i++)
+				_data[i] = other._data[i];
+		}
+	}
 	return (*this);
 }
 
 template <typename T>
 Array<T>::~Array()
 {
-	delete[] array;
+	delete[] _data;
 }
 
 template <typename T>
-T& Array<T>::operator[](unsigned int n)
+T& Array<T>::operator[](unsigned int index)
 {
-	if (n >= size)
-	{
-		throw IndexOutOfBounds();
-	}
-	return (array[n]);
-
+	if (index >= _size)
+		throw OutOfBoundsException();
+	return (_data[index]);
 }
 
 template <typename T>
-unsigned int Array<T>::getSize(void)
+const T& Array<T>::operator[](unsigned int index) const
 {
-	return (size);
+	if (index >= _size)
+		throw OutOfBoundsException();
+	return (_data[index]);
 }
 
 template <typename T>
-const char *Array<T>::IndexOutOfBounds::what() const throw()
+unsigned int Array<T>::size() const
 {
-	return ("Index is out of bounds");
+	return (_size);
+}
+
+template <typename T>
+const char* Array<T>::OutOfBoundsException::what() const throw()
+{
+	return "Array index is out of bounds";
 }
