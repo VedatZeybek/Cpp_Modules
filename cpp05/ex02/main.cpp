@@ -1,51 +1,32 @@
-#include <iostream>
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include <cstdlib>
+#include <ctime>
 
 int main()
 {
-    try
-    {
-        // Bureaucrat oluştur
-        Bureaucrat alice("Alice", 1); // en yüksek rütbe, her formu çalıştırabilir
-        Bureaucrat bob("Bob", 150);   // en düşük rütbe, hiçbir formu çalıştıramaz
+	std::srand(std::time(0));
 
-        // ShrubberyCreationForm
-        ShrubberyCreationForm shrubForm("Home");
-        alice.signForm(shrubForm);
-        alice.executeForm(shrubForm);
+	Bureaucrat boss("Boss", 1);
+	Bureaucrat mid("Mid", 70);
+	Bureaucrat low("Low", 150);
 
-        // RobotomyRequestForm
-        RobotomyRequestForm roboForm("Marvin");
-        alice.signForm(roboForm);
-        alice.executeForm(roboForm);
+	ShrubberyCreationForm shrub("home");
+	RobotomyRequestForm robot("Bender");
+	PresidentialPardonForm pardon("Arthur Dent");
 
-        // PresidentialPardonForm
-        PresidentialPardonForm pardonForm("Trillian");
-        alice.signForm(pardonForm);
-        alice.executeForm(pardonForm);
+	low.signForm(shrub);
+	mid.signForm(shrub);
+	mid.executeForm(shrub);
 
-        std::cout << "\n--- Copy constructor ve assignment test ---\n";
+	mid.signForm(robot);
+	mid.executeForm(robot);
+	boss.executeForm(robot);
 
-        // Copy constructor
-        ShrubberyCreationForm shrubFormCopy(shrubForm);
-        alice.executeForm(shrubFormCopy);
+	boss.signForm(pardon);
+	boss.executeForm(pardon);
 
-        // Assignment operator
-        RobotomyRequestForm roboFormAssign("Dummy");
-        roboFormAssign = roboForm;
-        alice.executeForm(roboFormAssign);
-
-        // Başarısız durum: düşük rütbeli Bob
-        bob.executeForm(pardonForm);
-
-    }
-    catch (std::exception &e)
-    {
-        std::cerr << "Exception: " << e.what() << std::endl;
-    }
-
-    return 0;
+	return 0;
 }

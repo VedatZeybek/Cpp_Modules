@@ -11,11 +11,11 @@ private:
 public:
 	PresidentialPardonForm();
 	PresidentialPardonForm(const PresidentialPardonForm& other);
-	PresidentialPardonForm(const std::string target);
+	PresidentialPardonForm(const std::string& target);
 	PresidentialPardonForm& operator=(const PresidentialPardonForm& other);
 	~PresidentialPardonForm();
 
-	void execute(Bureaucrat &bureaucrat) const;
+	void executeAction() const;
 };
 
 

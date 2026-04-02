@@ -13,11 +13,11 @@ private:
 public:
 	RobotomyRequestForm();
 	RobotomyRequestForm(const RobotomyRequestForm& other);
-	RobotomyRequestForm(const std::string target);
+	RobotomyRequestForm(const std::string& target);
 	RobotomyRequestForm& operator=(const RobotomyRequestForm& other);
 	~RobotomyRequestForm();
 	
-	void execute(Bureaucrat &bureaucrat) const;
+	void executeAction() const;
 };
 
 
