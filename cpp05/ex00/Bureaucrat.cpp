@@ -1,6 +1,6 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(): name("Bureucrat")
+Bureaucrat::Bureaucrat(): name("Bureaucrat")
 {
 	std::cout << "Default Constructor is called" << std::endl;
 	this->setGrade(150);
@@ -11,12 +11,9 @@ Bureaucrat::Bureaucrat(const std::string& name) : name(name), grade(150)
 	std::cout << "Parametized Constructor(name) is called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& other) 
+Bureaucrat::Bureaucrat(const Bureaucrat& other) : name(other.name), grade(other.grade)
 {
 	std::cout << "Copy Constructor is called" << std::endl;
-
-	if (this != &other)
-		*this = other;
 }
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade) : name(name)
