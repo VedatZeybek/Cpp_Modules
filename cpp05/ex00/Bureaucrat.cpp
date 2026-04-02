@@ -1,18 +1,17 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat()
+Bureaucrat::Bureaucrat(): name("Bureucrat")
 {
 	std::cout << "Default Constructor is called" << std::endl;
 	this->setGrade(150);
 }
 
-Bureaucrat::Bureaucrat(const std::string name)
+Bureaucrat::Bureaucrat(const std::string& name) : name(name), grade(150)
 {
 	std::cout << "Parametized Constructor(name) is called" << std::endl;
-	setName(name);
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& other)
+Bureaucrat::Bureaucrat(const Bureaucrat& other) 
 {
 	std::cout << "Copy Constructor is called" << std::endl;
 
@@ -20,10 +19,9 @@ Bureaucrat::Bureaucrat(const Bureaucrat& other)
 		*this = other;
 }
 
-Bureaucrat::Bureaucrat(const std::string name, int grade)
+Bureaucrat::Bureaucrat(const std::string& name, int grade) : name(name)
 {
 	std::cout << "Parametized Constructor(name, grade) is called" << std::endl;
-	setName(name);
 	setGrade(grade);
 }
 
@@ -32,7 +30,6 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other)
 	if (this != &other)
 	{
 		setGrade(other.grade);
-		setName(other.name);
 	}
 	return (*this);
 }
@@ -42,11 +39,6 @@ Bureaucrat::~Bureaucrat()
 	std::cout << "Destrcutor is called" << std::endl;
 }
 
-void Bureaucrat::setName(const std::string name)
-{
-	this->name = name;
-}
-
 std::string Bureaucrat::getName() const
 {
 	return (name);
@@ -54,12 +46,12 @@ std::string Bureaucrat::getName() const
 
 void Bureaucrat::setGrade(int grade)
 {
-	if (grade >= 0 && grade <= 150)
+	if (grade >= 1 && grade <= 150)
 		this->grade  = (grade);
 	else if (grade > 150)
-		throw GradetooHighException();
+		throw GradeTooLowException();
 	else
-		throw GradetooLowException();	
+		throw GradeTooHighException();	
 }
 
 int Bureaucrat::getGrade() const
@@ -67,43 +59,26 @@ int Bureaucrat::getGrade() const
 	return (grade);
 }
 
-
-void Bureaucrat::incremetGrade()
+void Bureaucrat::incrementGrade()
 {
-	try
-	{
-		setGrade(grade + 1);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-		return ;
-	}
+	setGrade(grade - 1);
 	std::cout   << "Grade increment is succesful. New Grade is: "
 				<< getGrade() << std::endl; 
 }
 
 void Bureaucrat::decrementGrade()
 {
-	try
-	{
-		setGrade(grade - 1);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n'; 
-		return ;
-	}
+	setGrade(grade + 1);
 	std::cout   << "Grade decrement is succesful. New Grade is: "
 				<< getGrade() << std::endl; 
 }
 
-const char *Bureaucrat::GradetooHighException::what() const throw()
+const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
 	return ("Grade too High!!!");
 }
 
-const char *Bureaucrat::GradetooLowException::what() const throw()
+const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return ("Grade too Low!!!");
 }
