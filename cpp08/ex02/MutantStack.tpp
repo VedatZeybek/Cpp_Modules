@@ -21,6 +21,8 @@ MutantStack<T>::~MutantStack()
 {
 }
 
+//c -> container (deque), begin(), end(), rbegin(), rend() deque functions
+
 template <typename T>
 typename MutantStack<T>::iterator MutantStack<T>::begin()
 {
