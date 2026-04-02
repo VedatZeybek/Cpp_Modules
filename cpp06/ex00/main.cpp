@@ -1,14 +1,13 @@
 #include "ScalarConverter.hpp"
+#include <iostream>
 
-int main()
+int main(int argc, char **argv)
 {
-	//ScalarConverter::convert("abc");
-	ScalarConverter::convert("42");
-	std::cout << "------\n";
-	ScalarConverter::convert("a");
-	std::cout << "------\n";
-	ScalarConverter::convert("4.2f");
-	std::cout << "------\n";
-	ScalarConverter::convert("nan");
+	if (argc != 2)
+	{
+		std::cout << "Usage: ./convert <literal>" << std::endl;
+		return 1;
+	}
+	ScalarConverter::convert(argv[1]);
 	return 0;
 }
