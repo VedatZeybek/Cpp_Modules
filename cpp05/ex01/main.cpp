@@ -5,8 +5,8 @@ int main()
 {
 	try
 	{
-		Bureaucrat a("Alice", 50);
-		Bureaucrat b("Bob", 120);
+		Bureaucrat a("Vedat Zeybek", 50);
+		Bureaucrat b("Hüseyin Coban", 120);
 
 		Form taxForm("TaxForm", 100, 50);
 		Form topSecret("TopSecret", 10, 5);

@@ -9,13 +9,13 @@ int main()
 {
 	std::srand(std::time(0));
 
-	Bureaucrat boss("Boss", 1);
-	Bureaucrat mid("Mid", 70);
-	Bureaucrat low("Low", 150);
+	Bureaucrat boss("Vito Corleone", 1);
+	Bureaucrat mid("Enver Yucel", 70);
+	Bureaucrat low("Huseyin Yucel", 150);
 
 	ShrubberyCreationForm shrub("home");
-	RobotomyRequestForm robot("Bender");
-	PresidentialPardonForm pardon("Arthur Dent");
+	RobotomyRequestForm robot("robot");
+	PresidentialPardonForm pardon("Trump Form");
 
 	low.signForm(shrub);
 	mid.signForm(shrub);
