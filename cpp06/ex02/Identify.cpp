@@ -4,7 +4,7 @@
 
 Base* generate() 
 {
-	int r = std::rand() % 3; 
+	int r = std::rand() % 3;  // 1 0 2 0 1 2 
 	if (r == 0)
 		return new A;
 	else if (r == 1)
