@@ -13,8 +13,8 @@ int main()
 	Bureaucrat mid("Enver Yucel", 70);
 	Bureaucrat low("Huseyin Yucel", 150);
 
-	ShrubberyCreationForm shrub("home");
-	RobotomyRequestForm robot("robot");
+	ShrubberyCreationForm shrub("Home");
+	RobotomyRequestForm robot("ARIFv216");
 	PresidentialPardonForm pardon("Trump Form");
 
 	low.signForm(shrub);

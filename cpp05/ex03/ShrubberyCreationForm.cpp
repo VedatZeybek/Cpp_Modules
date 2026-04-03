@@ -27,7 +27,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 
 void ShrubberyCreationForm::executeAction() const
 {
-    std::ofstream file((getName() + "_shrubbery.txt").c_str());
+    std::ofstream file((target + "_shrubbery.txt").c_str());
     if (!file)
     {
         std::cerr << "Failed to create file!" << std::endl;

@@ -38,6 +38,6 @@ void RobotomyRequestForm::executeAction() const
     if (std::rand() % 2)
         std::cout << target << " has been robotomized successfully!" << std::endl;
     else
-        std::cout << "Robotomy failed on " << getName() << std::endl;
+        std::cout <<  target << " failed on RobotomyRequestForm"  << std::endl;
 }
 
