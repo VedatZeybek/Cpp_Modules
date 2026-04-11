@@ -8,6 +8,7 @@ int main(int argc, char const *argv[])
 	std::vector<std::string> s;
 	int		result = 0;
 	int 	temp = 0;
+	int 	divider = 0;
 	if (argc != 2)
 		return (1);
 	int	i = 0;
@@ -32,43 +33,30 @@ int main(int argc, char const *argv[])
 				s.pop_back();
 				s.push_back(std::to_string(temp));
 			}
-			else
-				return (1);
-		}
-		else if (str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/')
-		{
-			if (s.size() >=  2 && str[i] == '-')
+			else if (s.size() >=  2 && str[i] == '-')
 			{
-				temp += std::stoi(s[s.size() - 1]);
-				s.pop_back();
 				temp -= std::stoi(s[s.size() - 1]);
 				s.pop_back();
+				temp += std::stoi(s[s.size() - 1]);
+				s.pop_back();
+				s.push_back(std::to_string(temp));
 			}
-			else
-				return (1);
-		}
-		else if (str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/')
-		{
-			if (s.size() >=  2 && str[i] == '*')
+			else if (s.size() >=  2 && str[i] == '*')
 			{
 				temp += std::stoi(s[s.size() - 1]);
 				s.pop_back();
 				temp *= std::stoi(s[s.size() - 1]);
 				s.pop_back();
 				s.push_back(std::to_string(temp));
-
+	
 			}
-			else
-				return (1);
-		}
-		else if (str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/')
-		{
-			if (s.size() >=  2 && str[i] == '/')
+			else if (s.size() >=  2 && str[i] == '/')
 			{
+				divider = std::stoi(s[s.size() - 1]);
+				s.pop_back();
 				temp += std::stoi(s[s.size() - 1]);
 				s.pop_back();
-				temp /= std::stoi(s[s.size() - 1]);
-				s.pop_back();
+				temp = temp / divider;
 				s.push_back(std::to_string(temp));
 			}
 			else
@@ -88,6 +76,6 @@ int main(int argc, char const *argv[])
 
 	std::cout << result << std::endl;
 	
-	delete str;
+	delete[] str;
 	return 0;
 }
