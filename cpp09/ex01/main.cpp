@@ -1,19 +1,23 @@
-#include "iostream"
+#include <iostream>
 #include <stack>
 #include <vector>
-#include "cstring"
+#include <cstring>
 
 int main(int argc, char const *argv[])
 {
-	std::vector<std::string> s;
-	int		result = 0;
-	int 	temp = 0;
-	int 	divider = 0;
 	if (argc != 2)
+	{
+		std::cerr << "Error" << std::endl;
 		return (1);
-	int	i = 0;
-	char *str = new char[100];
-	std::strcpy(str, argv[1]);
+	}
+
+	std::vector<int>	s;
+	int					result = 0;
+	int 				temp = 0;
+	int 				divider = 0;
+	int					i = 0;
+	const char			*str = argv[1];
+
 	while (str[i] != '\0')
 	{
 		temp = 0;
@@ -21,61 +25,67 @@ int main(int argc, char const *argv[])
 			i++;
 		if (isdigit(str[i]))
 		{
-			s.push_back(std::string() + str[i]);
+			s.push_back((str[i] - '0'));
 		}
 		else if (str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/')
 		{
 			if (s.size() >=  2 && str[i] == '+')
 			{
-				temp += std::stoi(s[s.size() - 1]);
+				temp += (s[s.size() - 1]);
 				s.pop_back();
-				temp += std::stoi(s[s.size() - 1]);
+				temp += (s[s.size() - 1]);
 				s.pop_back();
-				s.push_back(std::to_string(temp));
+				s.push_back((temp));
 			}
 			else if (s.size() >=  2 && str[i] == '-')
 			{
-				temp -= std::stoi(s[s.size() - 1]);
+				temp -= (s[s.size() - 1]);
 				s.pop_back();
-				temp += std::stoi(s[s.size() - 1]);
+				temp += (s[s.size() - 1]);
 				s.pop_back();
-				s.push_back(std::to_string(temp));
+				s.push_back((temp));
 			}
 			else if (s.size() >=  2 && str[i] == '*')
 			{
-				temp += std::stoi(s[s.size() - 1]);
+				temp += (s[s.size() - 1]);
 				s.pop_back();
-				temp *= std::stoi(s[s.size() - 1]);
+				temp *= (s[s.size() - 1]);
 				s.pop_back();
-				s.push_back(std::to_string(temp));
+				s.push_back((temp));
 	
 			}
 			else if (s.size() >=  2 && str[i] == '/')
 			{
-				divider = std::stoi(s[s.size() - 1]);
+				divider = (s[s.size() - 1]);
+				if (divider == 0)
+				{
+					std::cerr << "Error" << std::endl;
+					return (1);
+				}
 				s.pop_back();
-				temp += std::stoi(s[s.size() - 1]);
+				temp += (s[s.size() - 1]);
 				s.pop_back();
 				temp = temp / divider;
-				s.push_back(std::to_string(temp));
+				s.push_back((temp));
 			}
 			else
+				std::cerr << "Error" << std::endl;
 				return (1);
 		}
-		else if (str[i] == '\0')
-			break;
 		else
 		{
-			std::cout << "why mr anderson why?" << std::endl;
+			std::cerr << "Error" << std::endl;
 			return (1);
 		}
 		i++;
 	}
-
-	result = std::stoi(s[s.size() - 1]);
-
+	if (s.size() != 1)
+	{
+		std::cerr << "Error" << std::endl;
+		return (1);
+	}
+	result = (s[s.size() - 1]);
 	std::cout << result << std::endl;
 	
-	delete[] str;
 	return 0;
 }
