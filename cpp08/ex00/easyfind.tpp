@@ -1,3 +1,5 @@
+//Compile-time duck typing
+
 template <typename T>
 typename T::iterator easyfind(T& container, int value)
 {
