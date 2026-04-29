@@ -1,4 +1,4 @@
-NAME = btc
+NAME = PmergeMe
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -11,7 +11,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.cpp main.cpp PMergeMe.cpp
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:

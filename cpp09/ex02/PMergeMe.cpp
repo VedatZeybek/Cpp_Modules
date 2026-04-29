@@ -1,12 +1,13 @@
 #include "PMergeMe.hpp"
+#include <cstdlib>
 
-#include <algorithm>
+// list-based implementation
 
 PMergeMe::PMergeMe()
 {
 }
 
-PMergeMe::PMergeMe(const PMergeMe& other): _vec(other._vec)
+PMergeMe::PMergeMe(const PMergeMe& other): _list(other._list), _que(other._que)
 {
 
 }
@@ -15,7 +16,8 @@ PMergeMe& PMergeMe::operator=(const PMergeMe& other)
 {
     if (this != &other)
     {
-        this->_vec = other._vec;
+        this->_list = other._list;
+        this->_que = other._que;
     }
     return (*this);
 }
@@ -63,33 +65,33 @@ void PMergeMe::parseInput(int argc, char **argv)
             throw std::runtime_error("Error");
 
         seen.insert(static_cast<int>(value));
-        _vec.push_back(static_cast<int>(value));
+        _list.push_back(static_cast<int>(value));
     }
 }
 
 
-const std::vector<int>& PMergeMe::getVector() const
+const std::list<int>& PMergeMe::getList() const
 {
-	return _vec;
+    return _list;
 }
-
-
-std::vector<int> PMergeMe::fordJohnson(std::vector<int> v)
+std::list<int> PMergeMe::fordJohnsonList(const std::list<int>& lst)
 {
-    if (v.size() <= 1)
-        return v;
+    if (lst.size() <= 1)
+        return lst;
 
-    const size_t totalSize = v.size();
+    const size_t totalSize = lst.size();
     const bool isOdd = (totalSize % 2 != 0);
     const size_t pairCount = totalSize / 2;
 
-    std::vector<pair> pairs;
-    pairs.reserve(pairCount);
+    std::list<pair> pairs;
+    pairs.clear();
 
+    // build pairs
+    std::list<int>::const_iterator it = lst.begin();
     for (size_t i = 0; i < pairCount; ++i)
     {
-        int first = v[i * 2];
-        int second = v[i * 2 + 1];
+        int first = *it; ++it;
+        int second = *it; ++it;
         pair p;
         if (first >= second)
         {
@@ -104,41 +106,61 @@ std::vector<int> PMergeMe::fordJohnson(std::vector<int> v)
         pairs.push_back(p);
     }
 
-    std::vector<int> mainChain;
-    mainChain.reserve(pairCount);
-    for (size_t i = 0; i < pairs.size(); ++i)
-        mainChain.push_back(pairs[i].big);
+    // main chain: list of bigs
+    std::list<int> mainChain;
+    for (std::list<pair>::const_iterator pi = pairs.begin(); pi != pairs.end(); ++pi)
+        mainChain.push_back(pi->big);
 
-    mainChain = fordJohnson(mainChain);
+    mainChain = fordJohnsonList(mainChain);
 
-    std::vector<int> pending;
-    pending.reserve(pairCount);
-    for (size_t i = 0; i < mainChain.size(); ++i)
+    // pending: smalls ordered by mainChain
+    std::list<int> pending;
+    for (std::list<int>::const_iterator mcIt = mainChain.begin(); mcIt != mainChain.end(); ++mcIt)
     {
-        for (size_t j = 0; j < pairs.size(); ++j)
+        for (std::list<pair>::const_iterator pi = pairs.begin(); pi != pairs.end(); ++pi)
         {
-            if (pairs[j].big == mainChain[i])
+            if (pi->big == *mcIt)
             {
-                pending.push_back(pairs[j].small);
+                pending.push_back(pi->small);
                 break;
             }
         }
     }
 
-    std::vector<int> result = mainChain;
-    for (size_t i = 0; i < pending.size(); ++i)
+    // result starts as mainChain
+    std::list<int> result = mainChain;
+
+    // insert pending elements into result in order (linear search)
+    for (std::list<int>::const_iterator pIt = pending.begin(); pIt != pending.end(); ++pIt)
     {
-        std::vector<int>::iterator pos = std::lower_bound(result.begin(), result.end(), pending[i]);
-        result.insert(pos, pending[i]);
+        std::list<int>::iterator insertPos = result.begin();
+        while (insertPos != result.end() && *insertPos < *pIt)
+            ++insertPos;
+        result.insert(insertPos, *pIt);
     }
 
+    // handle leftover if odd
     if (isOdd)
     {
-        int leftover = v[totalSize - 1];
-        std::vector<int>::iterator pos = std::lower_bound(result.begin(), result.end(), leftover);
-        result.insert(pos, leftover);
+        // leftover is last element of lst
+        int leftover = lst.back();
+        std::list<int>::iterator insertPos = result.begin();
+        while (insertPos != result.end() && *insertPos < leftover)
+            ++insertPos;
+        result.insert(insertPos, leftover);
     }
 
+    return result;
+}
+
+
+std::deque<int> PMergeMe::fordJohnsonDeque(const std::deque<int>& dq)
+{
+    std::list<int> lst(dq.begin(), dq.end());
+    std::list<int> sorted = fordJohnsonList(lst);
+    std::deque<int> result;
+    for (std::list<int>::const_iterator it = sorted.begin(); it != sorted.end(); ++it)
+        result.push_back(*it);
     return result;
 }
 
