@@ -80,16 +80,19 @@ bool BitcoinExchange::isValidDate(const std::string& date) const
 
 bool BitcoinExchange::parseNumber(const std::string& str, double& value) const
 {
-	std::stringstream ss(str);
-	ss >> value;
-	if (ss.fail())
+	std::size_t pos = 0;
+	try {
+		value = std::stod(str, &pos);
+	} catch (const std::invalid_argument&) {
 		return false;
-
-	ss >> std::ws;
-	if (!ss.eof())
+	} catch (const std::out_of_range&) {
 		return false;
+	}
 
-	return true;
+	while (pos < str.length() && std::isspace(static_cast<unsigned char>(str[pos])))
+		++pos;
+
+	return pos == str.length();
 }
 
 void BitcoinExchange::loadDatabase(const std::string& filename)
