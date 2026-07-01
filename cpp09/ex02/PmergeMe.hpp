@@ -29,6 +29,8 @@ public:
 
     void parseInput(int argc, char **argv);
     const std::list<int>& getList() const;
+    const std::deque<int>& getDeque() const;
+
 
     std::list<int> fordJohnsonList(const std::list<int>& lst);
     std::deque<int> fordJohnsonDeque(const std::deque<int>& dq);
